@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"fmt"
+	"github.com/labstack/echo/v4"
 	"io"
 	"math/rand"
 	"net"
@@ -14,7 +15,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/kostyabl/echo"
 )
 
 // TODO: Handle TLS proxy
