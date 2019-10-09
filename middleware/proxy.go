@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net"
 	"net/http"
+	"net/http/httputil"
 	"net/url"
 	"regexp"
 	"strings"
@@ -193,6 +194,12 @@ func Proxy(balancer ProxyBalancer) echo.MiddlewareFunc {
 	return ProxyWithConfig(c)
 }
 
+func proxyHTTPWithFlushInterval(t *ProxyTarget, interval time.Duration) http.Handler {
+	proxy := httputil.NewSingleHostReverseProxy(t.URL)
+	proxy.FlushInterval = interval
+	return proxy
+}
+
 // ProxyWithConfig returns a Proxy middleware with config.
 // See: `Proxy()`
 func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
@@ -246,6 +253,7 @@ func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
 			case c.IsWebSocket():
 				proxyRaw(tgt, c).ServeHTTP(res, req)
 			case req.Header.Get(echo.HeaderAccept) == "text/event-stream":
+				proxyHTTPWithFlushInterval(tgt, 100*time.Millisecond).ServeHTTP(res, req)
 			default:
 				proxyHTTP(tgt, c, config).ServeHTTP(res, req)
 			}

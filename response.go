@@ -94,6 +94,10 @@ func (r *Response) Hijack() (net.Conn, *bufio.ReadWriter, error) {
 	return r.Writer.(http.Hijacker).Hijack()
 }
 
+func (r *Response) CloseNotify() <- chan bool {
+	return r.Writer.(http.CloseNotifier).CloseNotify()
+}
+
 func (r *Response) reset(w http.ResponseWriter) {
 	r.beforeFuncs = nil
 	r.afterFuncs = nil
