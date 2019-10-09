@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/labstack/echo/v4"
 	"io"
 	"math/rand"
 	"net"

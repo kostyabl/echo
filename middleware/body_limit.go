@@ -5,7 +5,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/labstack/echo/v4"
+	"github.com/kostyabl/echo"
 	"github.com/labstack/gommon/bytes"
 )
 

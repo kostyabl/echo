@@ -4,6 +4,7 @@ go 1.12
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/kostyabl/echo v3.3.10+incompatible // indirect
 	github.com/labstack/gommon v0.3.0
 	github.com/stretchr/testify v1.4.0
 	github.com/valyala/fasttemplate v1.0.1
