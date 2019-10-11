@@ -253,6 +253,7 @@ func ProxyWithConfig(config ProxyConfig) echo.MiddlewareFunc {
 			case c.IsWebSocket():
 				proxyRaw(tgt, c).ServeHTTP(res, req)
 			case req.Header.Get(echo.HeaderAccept) == "text/event-stream":
+				res.Header().Set("X-Accel-Buffering", "no")
 				proxyHTTPWithFlushInterval(tgt, 100*time.Millisecond).ServeHTTP(res, req)
 			default:
 				proxyHTTP(tgt, c, config).ServeHTTP(res, req)
